@@ -1,6 +1,10 @@
 from datetime import datetime, timedelta
 from airflow.models.dag import DAG
 from airflow.operators.bash import BashOperator
+from airflow.operators.python import PythonOperator
+
+def display_message(**kwargs):
+    print("Hello, This is Python Method")
 
 with DAG(
     "basic_dag",
@@ -13,7 +17,7 @@ with DAG(
         "retry_delay": timedelta(seconds=30)
     },
     description="A Sample ETL DAG that uses BashOperator",
-    schedule=timedelta(days=1),
+    schedule=timedelta(minutes=1),
     start_date=datetime(2021, 1, 1),
     catchup=False,
     tags=["example"],
@@ -33,4 +37,9 @@ with DAG(
         retries=3
     )
 
-    t1 >> t2
+    t3 = PythonOperator(
+        task_id="python_print_message",
+        python_callable=display_message
+    )
+
+    t1 >> [t2 >> t3]

@@ -8,7 +8,7 @@ def extract(**kwargs):
 
     ti = kwargs["ti"]
     extracted_data = [100, 200, 350]
-    ti.xcom_push("extracted_data", extracted_data)
+    ti.xcom_push("extracted_data", extracted_data)  # XComm Limitation - Max data size is 48KB
 
 def transform(**kwargs):
     print("Data Transformation")
@@ -36,7 +36,7 @@ with DAG(
         "retry_delay": timedelta(minutes=5)
     },
     description="A Sample ETL DAG that uses BashOperator and PythonOperator",
-    schedule=timedelta(seconds=30),
+    schedule=timedelta(days=1),
     start_date=datetime(2021, 1, 1),
     catchup=False,
     tags=["example"],
@@ -45,7 +45,7 @@ with DAG(
     t1 = BashOperator(
         task_id="bash_print_message",
         depends_on_past=True,
-        bash_command="echo 'Welcome To Apache Airflow'",
+        bash_command="echo 'Welcome to Apache Airflow ETL Pipeline'",
         retries=3
     )
 
