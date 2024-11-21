@@ -9,18 +9,12 @@ from airflow.decorators import dag, task
 )
 def taskflow_etl_dag():
 
-    #sample_api_key = Variable.get(key="sample_api_key", default_var="")
-    sample_api_key = "AXT12ohsdgoojf32423kbklk"
-
     @task()
-    def extract(sample_api_key):
+    def extract():
         print("Data Extraction")
-        print(f"API Key: {sample_api_key}")
         
-        if len(sample_api_key) > 0:
-            return [100, 200, 350]
-        else:
-            return []
+        return [100, 200, 350]
+        
 
     @task() #multiple_outputs=True
     def transform(data):
@@ -34,7 +28,7 @@ def taskflow_etl_dag():
         print("Data Loading")
         print(f"Sum: {data.get('result')}")
     
-    extracted_data = extract(sample_api_key)
+    extracted_data = extract()
     transformed_data = transform(extracted_data)
     load(transformed_data)
 
