@@ -1,0 +1,7 @@
+order_id,customer_name,product_name,order_date,total_amount,status
+1,Alice Johnson,Laptop,2024-11-01,96000.0,Shipped
+4,Diana Prince,Monitor,2024-11-04,32000.0,Shipped
+8,Henry Ford,Webcam,2024-11-08,8000.0,Shipped
+13,Mary Jane,Speakers,2024-11-13,4800.0,Shipped
+16,Paul Atreides,Projector,2024-11-16,40000.0,Shipped
+20,Tom Holland,Tripod,2024-11-20,8000.0,Shipped
